@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            top: 0;
+            width: 100%;
+            background-color: rgb(230, 230, 155);
+            padding: 20px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .navbar-brand img {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .nav-item {
+            margin-right: 20px;
+        }
+
+        .nav-link {
+            color: black;
+            text-decoration: none;
+        }
+        
+        .navbar-collapse {
+        text-align: right;
+        }
+
+        .nav-link:hover {
+            color: gray;
+        }
+
+        .dessert {
+            margin-bottom: 30px;
+        }
+
+        .dessert img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="header">
+        <a class="navbar-brand" href="#">
+            <img src="logo.png" alt="Logo">
+            <span>甜點網站</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">首頁</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">麵包</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">登入</a>
+              </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="dessert">
+            <img src="1.jpg" alt="甜點1">
+            <h2>莓果塔</h2>
+            <p>吃塔皮類的甜點，我最重視的是塔皮口感，塔皮對了，這甜點也就將近滿分。莓果塔的塔皮酥脆中還帶有核桃堅果香氣，卡士達溫柔的與裡頭的莓果醬結合，帶點酸又帶點甜，酸甜交趣在舌尖激盪出令人驚豔的火花，沒想到塔皮內竟然還夾有莓果醬，用料相當實在不說，甜度也恰到好處，吃完整個塔也不會覺得膩口，反而還意猶未盡呢。</p>
+        </div>
+
+        <div class="dessert">
+            <img src="2.webp" alt="甜點2">
+            <h2>黑糖胡桃黏黏肉桂捲</h2>
+            <p>黑糖加上蜂蜜熬煮，鋪底一起烘烤濕潤度高、甜度偏高微微黏口，搭配脆脆的胡桃，享受鬆軟的肉桂捲同時可以吃到脆脆的堅果。</p>
+        </div>
+
+        <div class="dessert">
+            <img src="3.jpg" alt="甜點3">
+            <h2>黑騎士蛋糕</h2>
+            <p>本體是巧克力戚風蛋糕，搭配75%法國巧克力香緹。</p>
+        </div>
+    </div>
+
+    <footer class="bg-third py-4">
+        <div class="container px-70 text-primary">
+
+            <div class="row justify-content-between mb-3">
+                <div class="col-12 col-md-6">
+                    <div class="mb-3">
+                        <img src="./images/logotype-lg-dark.svg" alt="Logo" width="171.22" height="26.6">
+                    </div>
+                    <div>
+                        <div>08-1234-5678</div>
+                        <div>eat2020@email.com</div>
+                        <div>800 屏東市新興區幸福路 520 號</div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <img src="" alt="今天是個吃甜點的好日子" width="59.28" height="218.69">
+                </div>
+            </div>
+            <div class="row justify-content-between align-items-end">
+                <div class="col-12 col-md-6 p-0 mb-3 mb-md-0 social-lists">
+                    <a href="#" class="h2"><i class="fas fa-at"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+  </body>
+</html>
