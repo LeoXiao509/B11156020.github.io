@@ -6,8 +6,15 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-image: url('image/sport.jpg');
+            background-size: cover; /* 背景圖片覆蓋整個螢幕 */
+            background-position: center; /* 背景圖片居中 */
+            background-repeat: no-repeat; /* 背景圖片不重複 */
             text-align: center;
             padding: 40px;
+            margin: 0; /* 移除預設邊距 */
+            height: 100vh; /* 使body填滿整個視窗高度 */
+            flex-direction: column;
+            justify-content: center; /* 垂直居中 */
         }
         h1 {
             color: white;
