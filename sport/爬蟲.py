@@ -47,5 +47,5 @@ else:
     
     html_table = df.to_html(index=False)
     
-    with open('分店.html', 'w', encoding='utf-8') as f:
+    with open('index.html', 'w', encoding='utf-8') as f:
        f.write(html_table)
