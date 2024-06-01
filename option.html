@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>健康小遊戲</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('image/sport.jpg');
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            color: white;
+            background-color: rgb(20, 179, 94);
+            padding: 30px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #question-container {
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        button {
+            background-color: rgb(20, 179, 94);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result, #score {
+            background-color: rgb(20, 179, 94);
+            padding: 30px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            font-size: 16px;
+            display: none;
+        }
+        #next-question {
+            display: none;
+        }
+        .correct {
+            background-color: #d4edda;
+        }
+        .incorrect {
+            background-color: #f8d7da;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>健康知識 - 有趣小測驗</h1>
+    <div id="question-container">
+        <p id="question-number"></p>
+        <p id="question"></p>
+        <button id="true-btn">⭕ 正確</button>
+        <button id="false-btn">❌ 錯誤</button>
+        <p id="time-left"></p>
+    </div>
+    <p id="result"></p>
+    <p id="score"></p>
+    <button id="next-question">下一題</button>
+
+    <script>
+        const questions = [
+            { question: "很多人每天晨跑是為了減肥。", answer: true },
+            { question: "睡眠時間對健康沒有太大影響。", answer: false },
+            { question: "健康的飲食習慣會影響健身成效。", answer: true },
+            { question: "在健身時,肌肉疼痛就代表不健康。", answer: false },
+            { question: "只需進行有氧運動,就可以達到健康的目標。", answer: false },
+            { question: "有氧運動可以幫助提高心肺功能。", answer: true },
+            { question: "高蛋白飲食可以直接幫助增肌。", answer: false },
+            { question: "伸展運動是可有可無的。", answer: false },
+            { question: "健身時不可以吃水果。", answer: false },
+            { question: "重訓可以增加肌肉量。", answer: true }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let questionOrder = [];
+        let timeLeft = 10; // 10秒時間限制
+        let intervalId;
+
+        // 初始化題目順序和時間
+        function initGame() {
+            initQuestionOrder();
+            showQuestion();
+            startTimer();
+        }
+
+        // 顯示剩餘時間
+        function startTimer() {
+            intervalId = setInterval(() => {
+                timeLeft--;
+                document.getElementById("time-left").textContent = `剩餘時間: ${timeLeft} 秒`;
+                if (timeLeft === 0) {
+                    clearInterval(intervalId);
+                    checkAnswer(false, true); // 視為答錯並標記為超時
+                }
+            }, 1000);
+        }
+
+        // 顯示問題
+        function showQuestion() {
+            const questionElement = document.getElementById("question");
+            const questionNumberElement = document.getElementById("question-number");
+            questionNumberElement.textContent = `第 ${currentQuestion + 1} 題`;
+            questionElement.textContent = questions[questionOrder[currentQuestion]].question;
+            timeLeft = 10; // 重置倒計時
+            document.getElementById("time-left").textContent = `剩餘時間: ${timeLeft} 秒`;
+
+            // 啟用按鈕
+            document.getElementById("true-btn").disabled = false;
+            document.getElementById("false-btn").disabled = false;
+
+            // 重置背景顏色
+            document.getElementById("question-container").classList.remove("correct", "incorrect");
+        }
+
+        // 初始化題目順序
+        function initQuestionOrder() {
+            questionOrder = Array.from(Array(questions.length).keys());
+            shuffleQuestions();
+        }
+
+        // 隨機打亂題目順序的函數
+        function shuffleQuestions() {
+            for (let i = questionOrder.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [questionOrder[i], questionOrder[j]] = [questionOrder[j], questionOrder[i]];
+            }
+        }
+
+        // 檢查答案
+        function checkAnswer(isTrue, isTimeout = false) {
+            const correctAnswer = questions[questionOrder[currentQuestion]].answer;
+            const resultElement = document.getElementById("result");
+            const scoreElement = document.getElementById("score");
+            if (isTrue === correctAnswer && !isTimeout) {
+                resultElement.textContent = "答對了!獲得 1 分";
+                document.getElementById("question-container").classList.add("correct");
+                score++;
+            } else {
+                if (isTimeout) {
+                    resultElement.textContent = "時間到了! 答錯了,再接再厲!";
+                } else {
+                    resultElement.textContent = "答錯了,再接再厲!";
+                }
+                document.getElementById("question-container").classList.add("incorrect");
+            }
+            scoreElement.textContent = `你的得分: ${score}/${questions.length}`;
+            clearInterval(intervalId); // 停止計時器
+
+            // 顯示結果和得分
+            resultElement.style.display = "block";
+            scoreElement.style.display = "block";
+
+            // 禁用按鈕
+            document.getElementById("true-btn").disabled = true;
+            document.getElementById("false-btn").disabled = true;
+
+            document.getElementById("next-question").style.display = "inline-block"; // 顯示下一題按鈕
+        }
+
+        // 下一題
+        document.getElementById("next-question").addEventListener("click", () => {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                showQuestion();
+                startTimer();
+                document.getElementById("next-question").style.display = "none"; // 隱藏下一題按鈕
+
+                // 隱藏結果和得分
+                document.getElementById("result").style.display = "none";
+                document.getElementById("score").style.display = "none";
+            } else {
+                const resultElement = document.getElementById("result");
+                resultElement.textContent = "遊戲結束!你的最終得分是 " + score + "/" + questions.length;
+                resultElement.style.display = "block";
+                currentQuestion = 0;
+                score = 0;
+                initGame();
+            }
+        });
+
+        document.getElementById("true-btn").addEventListener("click", () => checkAnswer(true));
+        document.getElementById("false-btn").addEventListener("click", () => checkAnswer(false));
+
+        initGame();
+    </script>
+</body>
+</html>
